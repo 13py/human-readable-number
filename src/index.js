@@ -15,6 +15,7 @@ let numbers = {
     13: "thirteen",
     14: "fourteen",
     15: "fifteen",
+    18: "eighteen",
     20: "twenty",
     30: "thirty",
     40: "forty",
@@ -25,6 +26,7 @@ let numbers = {
 module.exports = function toReadable(number) {
     const hundred = "hundred";
     if (
+        number == 18 ||
         number <= 15 ||
         number == 20 ||
         number == 30 ||
@@ -45,7 +47,11 @@ module.exports = function toReadable(number) {
         return String(numbers[50]) + " " + numbers[String(number % 10)];
     } else if (number > 80 && number < 90) {
         return String(numbers[80]) + " " + numbers[String(number % 10)];
-    } else if (number > 60 && number < 100) {
+    } else if (number >= 60 && number < 100) {
+        if (number % 10 == 0) {
+            return String(numbers[number / 10]) + "ty";
+        }
+        console.log(String(numbers[Math.floor(number / 10)]) + "ty");
         return (
             String(numbers[Math.floor(number / 10)]) +
             "ty" +
@@ -56,12 +62,15 @@ module.exports = function toReadable(number) {
         if (number % 100 == 0) {
             return String(numbers[Math.floor(number / 100)]) + " " + hundred;
         } else {
+            console.log(number % 100);
             return (
                 String(numbers[Math.floor(number / 100)]) +
                 " " +
                 hundred +
                 " " +
                 toReadable(number % 100)
+                // " " +
+                // toReadable(number % 10)
             );
         }
     }
