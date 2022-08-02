@@ -55,6 +55,14 @@ module.exports = function toReadable(number) {
     } else if (number >= 100 && number < 1000) {
         if (number % 100 == 0) {
             return String(numbers[Math.floor(number / 100)]) + " " + hundred;
+        } else {
+            return (
+                String(numbers[Math.floor(number / 100)]) +
+                " " +
+                hundred +
+                " " +
+                toReadable(number % 100)
+            );
         }
     }
 };
